@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,13 +32,14 @@ namespace SecuringApplication.Controllers
             return View();
         }
 
-        void email(string from,string to,string password)
+        [Authorize(Roles = "Teacher")]
+        void email(string from,string to,string passwordEntered,string passwordForStudent)
         {
             var fromAddress = new MailAddress(from, "Teacher");
             var toAddress = new MailAddress(to, "Student");
          
-            const string subject = "Subject";
-            const string body = "Body";
+           string subject = "Account for Student created";
+           string body = "Your Account was created! Please enter your password: "+passwordForStudent.ToString();
 
             var smtp = new SmtpClient
             {
@@ -46,7 +48,7 @@ namespace SecuringApplication.Controllers
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, password)
+                Credentials = new NetworkCredential(fromAddress.Address, passwordEntered)
             };
             using (var message = new MailMessage(fromAddress, toAddress)
             {
@@ -58,7 +60,7 @@ namespace SecuringApplication.Controllers
             }
         }
 
- 
+        [Authorize(Roles ="Teacher")]
         public async Task<IActionResult> CreateStudentAsync(StudentViewModel data,string passwordEntered)
         {
             try
@@ -76,7 +78,7 @@ namespace SecuringApplication.Controllers
                 IdentityUser newUser = new IdentityUser();
 
                 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                var stringChars = new char[8];
+                var stringChars = new char[6];
                 var random = new Random();
 
                 for (int i = 0; i < stringChars.Length; i++)
@@ -85,19 +87,19 @@ namespace SecuringApplication.Controllers
                 }
 
                 var password = new String(stringChars);
-
+                password = password + "!1";
 
                 newUser.Email = data.Email;
                 newUser.EmailConfirmed = true;
-                newUser.PasswordHash = password;
                 newUser.UserName = data.Email;
+
+
+                await _userManager.CreateAsync(newUser, password);
+                await _userManager.AddToRoleAsync(newUser,"Student");
                 
 
-                await _userManager.CreateAsync(newUser);
-                await _userManager.AddToRoleAsync(newUser,"Student");
 
-
-                email(User.Identity.Name, newUser.Email, passwordEntered);
+                email(User.Identity.Name, newUser.Email, passwordEntered,password);
 
                 ModelState.Clear();
             }catch(Exception e)

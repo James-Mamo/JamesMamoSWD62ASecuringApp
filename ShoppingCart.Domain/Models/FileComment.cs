@@ -6,18 +6,16 @@ using System.Text;
 
 namespace ShoppingCart.Domain.Models
 {
-    public class TaskFile
+    public class FileComment
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [ForeignKey("Task")]
-        public Guid TaskFk { get; set; }
-
+        public Guid Id { get; set; }
+        public string Comment { get; set; }
 
         [ForeignKey("File")]
         public Guid FileFk { get; set; }
-      
+
+
+        public string Owner { get; set; }
     }
 }

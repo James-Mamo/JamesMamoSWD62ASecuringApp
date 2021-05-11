@@ -14,6 +14,7 @@ namespace ShoppingCart.Data.Context
         public DbSet<Student> Students { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Task> Tasks {get;set;}
+        public DbSet<FileComment> FilesComments { get; set; }
 
         public DbSet<TaskFile> TasksFiles { get; set; }
 

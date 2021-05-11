@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Domain.Interfaces;
@@ -16,8 +17,8 @@ namespace ShoppingCart.Application.Services
         private IMapper _autoMapper;
         public FilesService(IFilesRepository filesRepo, IMapper autoMapper)
         {
-            _filesRepo = filesRepo;
             _autoMapper = autoMapper;
+            _filesRepo = filesRepo;
         }
 
 
@@ -28,12 +29,22 @@ namespace ShoppingCart.Application.Services
 
         public FileViewModel GetFile(Guid id)
         {
-            throw new NotImplementedException();
+            var f = _filesRepo.GetFile(id);
+            if (f == null) return null;
+            else
+            {
+                
+
+                var result = _autoMapper.Map<FileViewModel>(f);
+                return result;
+            }
         }
+
+       
 
         public IQueryable<FileViewModel> GetFiles()
         {
-            throw new NotImplementedException();
+            return _filesRepo.GetFiles().ProjectTo<FileViewModel>(_autoMapper.ConfigurationProvider);
         }
     }
 }

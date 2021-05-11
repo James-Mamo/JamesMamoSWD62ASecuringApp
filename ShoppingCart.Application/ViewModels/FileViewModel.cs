@@ -15,5 +15,7 @@ namespace ShoppingCart.Application.ViewModels
         public string Path { get; set; }
         public string Signature { get; set; }
         public string Owner { get; set; }
+        
+        public string Digest { get; set; }
     }
 }

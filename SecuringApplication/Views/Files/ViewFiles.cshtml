@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "ViewFiles";
+}
+
+<h1>ViewFiles</h1>
+<div class="row">
+    @Html.AntiForgeryToken()
+    @foreach (var file in Model)
+    {
+        <div class="col-md-4">
+            <div class="card" style="width:18rem;height:200px;">
+                <div class="card-body">
+                    <h5 class="card-title">@file.FileName</h5>
+                    <p class="card-text">@file.Description</p>
+                    @Html.ActionLink("Download File", "Download", "Files", new { id = SecuringApplication.Utility.Encryption.SymmetricEncrypt(file.Id.ToString()) })
+                    @Html.ActionLink("Add Comment", "CommentFiles", "Files", new { id = SecuringApplication.Utility.Encryption.SymmetricEncrypt(file.Id.ToString()) })
+                    @Html.ActionLink("Display Comment", "DisplayComments", "Files", new { id = SecuringApplication.Utility.Encryption.SymmetricEncrypt(file.Id.ToString()) })
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+

@@ -6,10 +6,10 @@ using System.Text;
 
 namespace ShoppingCart.Domain.Interfaces
 {
-    public interface IFilesRepository
+    public interface IFilesCommentsRepository
     {
-        IQueryable<File> GetFiles();
-        File GetFile(Guid id);
-        Guid AddFile(File f);
+        Guid AddFileComment(FileComment s);
+        FileComment GetComment(Guid id);
+        IQueryable<FileComment> GetAllComments();
     }
 }

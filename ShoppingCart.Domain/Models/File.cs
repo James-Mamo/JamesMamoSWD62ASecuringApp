@@ -20,5 +20,7 @@ namespace ShoppingCart.Domain.Models
         public string Signature { get; set; }
         [Required]
         public string Owner { get; set; }
+        [Required]
+        public string Digest { get; set; }
     }
 }

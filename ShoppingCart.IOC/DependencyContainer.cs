@@ -56,6 +56,9 @@ namespace ShoppingCart.IOC
             services.AddScoped<ITaskFileRepository, TaskFileRepository>();
             services.AddScoped<ITasksFilesService, TasksFilesService>();
 
+            services.AddScoped<IFilesCommentsRepository, FilesCommentsRepository>();
+            services.AddScoped<IFilesCommentsService, FileCommentsService>();
+
             services.AddAutoMapper(typeof(AutoMapperConfiguration));
             AutoMapperConfiguration.RegisterMappings();
 

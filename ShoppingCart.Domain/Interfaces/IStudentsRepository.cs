@@ -8,5 +8,6 @@ namespace ShoppingCart.Domain.Interfaces
     public interface IStudentsRepository
     {
         Guid AddStudent(Student s);
+        Student GetStudent(string email);
     }
 }

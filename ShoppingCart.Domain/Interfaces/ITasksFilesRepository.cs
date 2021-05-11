@@ -7,6 +7,7 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface ITaskFileRepository
     {
+        System.Linq.IQueryable<TaskFile> GetTaskFiles();
         void AddFileToTask(TaskFile  f);
     }
 }

@@ -3,6 +3,7 @@ using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ShoppingCart.Data.Repositories
@@ -14,6 +15,11 @@ namespace ShoppingCart.Data.Repositories
         public TaskFileRepository(ShoppingCartDbContext context)
         {
             _context = context;
+        }
+
+        public IQueryable<TaskFile> GetTaskFiles()
+        {
+            return _context.TasksFiles;
         }
 
         public void AddFileToTask(TaskFile f)

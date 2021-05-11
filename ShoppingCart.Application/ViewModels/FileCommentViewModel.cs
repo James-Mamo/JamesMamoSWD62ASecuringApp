@@ -4,16 +4,12 @@ using System.Text;
 
 namespace ShoppingCart.Application.ViewModels
 {
-    public class TasksFilesViewModel
+    public class FileCommentViewModel
     {
-        public int Id { get; set; }
-
-
-        public Guid TaskFk { get; set; }
-
-
+        public Guid Id { get; set; }
+        public string Comment { get; set; }
         public Guid FileFk { get; set; }
 
-        public string Digest { get; set; }
+        public string Owner { get; set; }
     }
 }

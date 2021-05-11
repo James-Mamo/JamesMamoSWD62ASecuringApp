@@ -8,5 +8,6 @@ namespace ShoppingCart.Application.Interfaces
     public interface IStudentsService
     {
         void AddStudent(StudentViewModel model);
+        StudentViewModel GetStudent(string email);
     }
 }

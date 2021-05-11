@@ -14,7 +14,8 @@
                     <h5 class="card-title">@task.Title</h5>
                     <p class="card-text">@task.Description</p>
                     <p class="card-text">Deadline: @task.DeadLine</p>
-                    @Html.ActionLink("Add File", "Create","Files", new { id = SecuringApplication.Utility.Encryption.SymmetricEncrypt(task.Id.ToString()) })
+                    @Html.ActionLink("Add File", "Create", "Files", new { id = SecuringApplication.Utility.Encryption.SymmetricEncrypt(task.Id.ToString()) })
+                    @Html.ActionLink("View All Files", "ViewFiles", "Files", new { id = SecuringApplication.Utility.Encryption.SymmetricEncrypt(task.Id.ToString()) })
                 </div>
             </div>
         </div>

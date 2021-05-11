@@ -20,24 +20,20 @@ namespace ShoppingCart.Application.Services
         }
         public void AddStudent(StudentViewModel model)
         {
-            //ProductViewModel >>>>>> Product
-
-            /* Product p = new Product()
-             {
-                 Name = model.Name,
-                 Description = model.Description,
-                 ImageUrl = model.ImageUrl,
-                 Price = model.Price,
-                 Stock = model.Stock,
-                 CategoryId = model.Category.Id
-             };
-
-             _productsRepo.AddProduct(p);
-            */
-
- 
 
             _studentsRepo.AddStudent(_autoMapper.Map<Student>(model));
+        }
+        public StudentViewModel GetStudent(string email)
+        {
+            var t = _studentsRepo.GetStudent(email);
+            if (t == null) return null;
+            else
+            {
+
+                var result = _autoMapper.Map<StudentViewModel>(t);
+                return result;
+            }
+
         }
     }
 }

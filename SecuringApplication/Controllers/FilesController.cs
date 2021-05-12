@@ -105,8 +105,8 @@ namespace SecuringApplication.Controllers
             return View();
         }
 
-        [Authorize]
-        public void  Download(string id)
+     
+        public void Download(string id)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace SecuringApplication.Controllers
                         {
                             if(f.Digest == retrievedFile.Digest)
                             {
-                                TempData["feedback"] = "This file has been copied!";
+                                TempData["warning"] = "This file has been copied!";
                             }
                         }
                     }
@@ -159,8 +159,16 @@ namespace SecuringApplication.Controllers
 
                     _logger.LogInformation("Files Downloaded" + DateTime.Now + " by " + User.Identity.Name + " with an IP Address of " + GetIPAddress());
 
-                   
-
+                    if (User.IsInRole("Teacher"))
+                    {
+                        foreach (FileViewModel f in allFiles)
+                        {
+                            if (f.Digest == retrievedFile.Digest)
+                            {
+                                TempData["warning"] = "This file has been copied!";
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -169,7 +177,7 @@ namespace SecuringApplication.Controllers
 
             }
 
-           
+            RedirectToAction("Index","Home");
 
         }
         
@@ -259,6 +267,7 @@ namespace SecuringApplication.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult DisplayComments(string id)
         {
             var decryptedid = Encryption.SymmetricDecrypt(id);

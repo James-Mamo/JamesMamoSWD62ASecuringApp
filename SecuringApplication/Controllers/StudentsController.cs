@@ -59,8 +59,14 @@ namespace SecuringApplication.Controllers
                 smtp.Send(message);
             }
         }
-
+        [HttpGet]
+        public IActionResult CreateStudentAsync()
+        {
+            return View();
+        }
+        [HttpPost]
         [Authorize(Roles ="Teacher")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateStudentAsync(StudentViewModel data,string passwordEntered)
         {
             try
